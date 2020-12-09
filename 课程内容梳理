@@ -1,0 +1,65 @@
+
+计划:周一，周三都讲单点知识，周六讲httprunner的mtx实战,下周一还要讲一个小时的实战
+1.参数化
+重点:除了做参数化用api接口，还需要做数据关联，所以必须给变量一个默认值，
+然后变量的名字必须跟参数化的变量名字一致。除此之外相同的断言会有覆盖效果，即api中定义断言，
+testcase里面也定义断言，那么testcase里面的断言会覆盖api中的断言
+1.1 当前文件参数化(重新说一遍)
+1.2 ${P(data/data.csv)} 文件参数化
+      parameters:
+        title-username-password-message: ${P(data/data.csv)}
+1.3 ${函数名字()}   debugtalk.py参数化
+      parameters:
+        title-username-password-message: ${get_params()}
+1.4 笛卡尔积效应
+多个账号一个密码的参数化
+parameters:
+    username: ["test1", "test2", "test3", "test4"]  # 参数化
+    password: [123456]
+
+2.   .env文件里面变量如何使用
+${ENV(变量)}
+    2.1 做个总结  三种变量的引用
+         $变量
+         ${函数(参数)}
+         ${ENV(变量)}
+
+讲解分层思想-官方文档的图片
+3.提取的变量值是字符串，然后要把变量值转换成int类型传递，那么就可以在debugtalk.py中写函数进行转换
+然后通过以下方式进行调用
+key2: ${str_to_int($key1)}
+
+案例演示：用token关联的查询接口演示，把token字符串转换成int，然后看报错信息，这样就能
+看出确实生效了。
+================================================================
+3.跳过skip
+3.1 在api接口中写一个关键字skip
+skip：功能没有实现跳过
+4.重复执行测试用例
+4.1 在api接口中写一个关键字
+应用场景:在工作中会遇到这种场景，发现某个接口不稳定，
+想重复运行100次用例，甚至1000次，看成功率
+times:2
+5.hook机制
+知识点:主要查看fixture函数的执行顺序，观看结果
+易错点:
+5.1.setup_hooks:
+    - 调用函数
+  teardown_hooks:
+    - 调用函数
+5.2.调用hook_log()传递参数的时候，不需要加字符串，直接写汉字就可以了
+6.命令行参数
+6.1
+--report-file用于指定测试报告的名称
+
+> hrun testsuites --report-file ./reports/mtx.html
+6.2
+--log-file 参数保存日志文件到指定的目录,保存日志文件到mtx.log
+
+> hrun test_demo.yml --log-file ./**logs**/mtx.log
+
+6.3
+--failfast 遇到错误立刻报错
+案例：testcase/token关联的查询接口，有hook函数的，然后把第一个断言改成2001，
+没有加参数的会有测试2开始的hook函数
+加参数的没有测试2开始的hook函数

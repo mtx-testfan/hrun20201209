@@ -1,0 +1,16 @@
+
+config:
+    name: 登录参数化的套件
+
+
+testcases:
+-
+    name: 登录的参数化
+    testcase: testcases/login_testcase.yml
+    # 一一对应的关系
+#    parameters:
+#        title-username-password-message: ${P(data/data.csv)}
+# 笛卡尔积随机组合
+    parameters:
+        username: ["test1", "test2", "test3", "test4"]  # 参数化
+        password: [123456]

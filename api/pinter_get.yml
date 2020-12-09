@@ -1,0 +1,16 @@
+
+name: pinter的get接口
+base_url: http://localhost:8080/
+skip: get接口的功能不全
+variables:
+    value: 1
+    message: success
+request:
+    url: /pinter/com/getSku
+    method: GET
+    params:
+        id: $value
+validate:
+    - ==: ["status_code", 200]
+    - eq: [content.message, $message]
+    - {"check": content.data.brand, "expect": testfan, "comparator": "eq"}

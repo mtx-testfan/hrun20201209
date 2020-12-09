@@ -1,0 +1,11 @@
+
+config:
+    name: 查询的套件
+
+
+testcases:
+-
+    name: 余额查询
+    testcase: testcases/query_token_testcase.yml
+
+

@@ -1,0 +1,16 @@
+
+name: token关联的查询接口
+base_url: http://localhost:8080/
+variables:
+    username: admin
+
+request:
+    url: /pinter/bank/api/query2
+    method: GET
+    headers:
+        testfan-token: ${get_token()}
+    params:
+        userName: $username
+
+validate:
+    - ==: ["status_code", 200]

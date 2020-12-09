@@ -1,0 +1,17 @@
+
+name: pinter的login接口
+base_url: http://localhost:8080/
+times: 2
+variables:
+    username: $username
+    pwd: $password
+    message: $message
+request:
+    url: /pinter/com/login
+    method: POST
+    data:
+        userName: $username
+        password: $pwd
+validate:
+    - ==: ["status_code", 200]
+    - eq: [content.message, $message]

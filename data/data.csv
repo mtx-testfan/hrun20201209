@@ -1,0 +1,5 @@
+title,username,password,message
+正常登录,admin,1234,success
+密码为空,admin,,参数为空
+用户名为空,,1234,参数为空
+用户名和密码为空,,,参数为空

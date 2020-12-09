@@ -1,0 +1,15 @@
+
+name: pinter的文件上传的接口
+base_url: http://localhost:8080/
+variables:
+    username: admin
+    pwd: 1234
+request:
+    url: /pinter/file/api/upload
+    method: POST
+    upload:
+        file: 'api/demo_api.yml'
+
+validate:
+    - ==: ["status_code", 200]
+    - eq: [content, 上传成功]
